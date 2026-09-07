@@ -49,10 +49,17 @@ public class TickDownloader {
 
         long totalTicks = 0;
 
+        // ---- ساخت پوشه در صورت عدم وجود ----
+        File file = new File(OUT_FILE);
+        if (file.getParentFile() != null) {
+            file.getParentFile().mkdirs();
+        }
+
         try (PrintWriter out = new PrintWriter(
-                new BufferedWriter(new FileWriter(OUT_FILE), 65536))) {
+                new BufferedWriter(new FileWriter(file), 65536))) {
 
             out.println("GmtTime,Bid,Ask,BidVolume,AskVolume");
+            // ... بقیه کد بدون تغییر
 
             // Iterate hour by hour
             Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
