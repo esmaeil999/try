@@ -59,3 +59,12 @@ jobs:
           name: tick-data-${{ github.event.inputs.instrument || 'EURUSD' }}
           path: output/ticks.csv
           retention-days: 30
+      - name: Download tick data
+        run: |
+          mkdir -p output
+          java -jar target/tick-exporter-1.0.0.jar \
+            "${{ github.event.inputs.instrument || 'EURUSD' }}" \
+            "${{ github.event.inputs.from_date  || '2024-01-01' }}" \
+            "${{ github.event.inputs.to_date    || '2024-01-02' }}" \
+            "output/ticks.csv" \
+            "${{ github.event.inputs.point_value || '100000' }}"          
